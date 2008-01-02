@@ -10,6 +10,7 @@ Source1:	htpdate.init
 Source2:	htpdate.sysconfig
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
+BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 The HTTP Time Protocol (HTP) is used to synchronize a computer's time
