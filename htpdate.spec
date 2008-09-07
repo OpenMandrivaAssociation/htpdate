@@ -1,7 +1,7 @@
 Summary:	HTTP based time synchronization tool
 Name:		htpdate
-Version:	1.0.0
-Release:	%mkrel 3
+Version:	1.0.3
+Release:	%mkrel 1
 License:	GPL
 Group:		System/Servers
 URL:		http://www.clevervest.com/htp/
@@ -10,7 +10,7 @@ Source1:	htpdate.init
 Source2:	htpdate.sysconfig
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 The HTTP Time Protocol (HTP) is used to synchronize a computer's time
@@ -39,7 +39,7 @@ cp %{SOURCE2} htpdate.sysconfig
 %make CFLAGS="%{optflags}"
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 # don't fiddle with the initscript!
 export DONT_GPRINTIFY=1
@@ -61,7 +61,7 @@ install -m0644 htpdate.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/htpdate
 %_preun_service htpdate
 
 %clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
@@ -70,5 +70,3 @@ install -m0644 htpdate.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/htpdate
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/htpdate
 %attr(0755,root,root) %{_sbindir}/htpdate
 %attr(0644,root,root) %{_mandir}/htpdate.8*
-
-
