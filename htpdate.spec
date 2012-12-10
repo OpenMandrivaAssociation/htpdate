@@ -70,3 +70,49 @@ rm -rf %{buildroot}
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/htpdate
 %attr(0755,root,root) %{_sbindir}/htpdate
 %attr(0644,root,root) %{_mandir}/htpdate.8*
+
+
+%changelog
+* Fri Dec 10 2010 Oden Eriksson <oeriksson@mandriva.com> 1.0.4-4mdv2011.0
++ Revision: 619487
+- the mass rebuild of 2010.0 packages
+
+* Sun Oct 04 2009 Oden Eriksson <oeriksson@mandriva.com> 1.0.4-3mdv2010.0
++ Revision: 453481
+- rebuild
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - rebuild
+
+* Thu Oct 16 2008 Oden Eriksson <oeriksson@mandriva.com> 1.0.4-1mdv2009.1
++ Revision: 294284
+- 1.0.4
+
+* Sun Sep 07 2008 Oden Eriksson <oeriksson@mandriva.com> 1.0.3-1mdv2009.0
++ Revision: 282155
+- 1.0.3
+
+* Thu Jul 24 2008 Thierry Vignaud <tv@mandriva.org> 1.0.0-3mdv2009.0
++ Revision: 247042
+- rebuild
+
+* Wed Jan 02 2008 Olivier Blin <oblin@mandriva.com> 1.0.0-1mdv2008.1
++ Revision: 140755
+- restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+
+* Sat Mar 03 2007 Oden Eriksson <oeriksson@mandriva.com> 1.0.0-1mdv2007.0
++ Revision: 131794
+- 1.0.0
+- bunzip sources
+
+* Fri Mar 02 2007 Oden Eriksson <oeriksson@mandriva.com> 0.9.0-1mdv2007.1
++ Revision: 131183
+- Import htpdate
+
+* Fri Feb 03 2006 Oden Eriksson <oeriksson@mandriva.com> 0.9.0-1mdk
+- initial Mandriva package
+

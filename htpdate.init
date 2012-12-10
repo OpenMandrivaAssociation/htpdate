@@ -1,0 +1,64 @@
+#!/bin/bash
+#
+# htpdate	This shell script takes care of starting and stopping htpdate.
+#
+# chkconfig: 2345 65 35
+# description: The HTTP Time Protocol daemon manages the \
+# time using "HTP" (the HTTP Time Protocol) to set the system \
+# clock periodically from remote web servers.
+# probe: false
+# processname: htpdate
+# pidfile: /var/run/htpdate/htpdate.pid
+# config: /etc/htpdate.conf
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Check that networking is up.
+[ "${NETWORKING}" = "no" ] && exit 0
+
+[ -x /usr/sbin/htpdate ] || exit 0
+
+# Source configuration file
+[ -f /etc/sysconfig/htpdate ] && . /etc/sysconfig/htpdate
+
+RETVAL=0
+# See how we were called.
+case "$1" in
+start)
+	echo -n "Starting htpdate: "
+	daemon htpdate -D -s \
+	-i /var/run/htpdate/htpdate.pid \
+	${HTPDATE_OPTIONS:-"www.linux.org"}
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/htpdate
+	;;
+stop)
+	echo -n "Stopping htpdate: "
+	killproc htpdate
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/htpdate
+	;;
+status)
+	status htpdate
+	RETVAL=$?
+	;;
+restart|reload)
+	$0 stop
+	$0 start
+	RETVAL=$?
+	;;
+condrestart)
+	[ -f /var/lock/subsys/htpdate ] && restart
+	;;
+  *)
+	echo "Usage: htpdate {start|stop|status|restart|condrestart|reload}"
+	exit 1
+esac
+
+exit $RETVAL
