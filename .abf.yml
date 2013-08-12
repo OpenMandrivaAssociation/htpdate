@@ -1,2 +1,4 @@
+removed_sources:
+  htpdate-1.0.4.tar.gz: e86d383e25452ef88695526c1d4851e89fa84bb5
 sources:
-  "htpdate-1.0.4.tar.gz": e86d383e25452ef88695526c1d4851e89fa84bb5
+  htpdate-1.0.5.tar.bz2: e0c6b0cad79cc6c965cd598e7217260a020b40cc
