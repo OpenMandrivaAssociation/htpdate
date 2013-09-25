@@ -1,11 +1,11 @@
 Summary:	HTTP based time synchronization tool
 Name:		htpdate
-Version:	1.0.5
+Version:	1.0.7
 Release:	1
 License:	GPL
 Group:		System/Servers
-URL:		http://www.clevervest.com/htp/
-Source0:	http://www.clevervest.com/htp/archive/c/%{name}-%{version}.tar.bz2
+URL:		http://www.vervest.org/fiki/bin/view/HTP/DownloadC
+Source0:	http://www.vervest.org/htp/archive/c/%{name}-%{version}.tar.bz2
 Source1:	htpdate.init
 Source2:	htpdate.sysconfig
 Requires(post): rpm-helper
