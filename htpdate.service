@@ -1,0 +1,12 @@
+[Unit]
+Description=The HTTP Time Protocol daemon manages the time using "HTP" (the HTTP Time Protocol) to set the system clock periodically from remote web servers.
+After=syslog.target network.target
+Wants=network.target
+
+[Service]
+Type=forking
+EnvironmentFile=-sysconfig/htpdate
+ExecStart=/usr/sbin/htpdate -D -s -i /run/htpdate/htpdate.pid ${HTPDATE_OPTIONS}
+
+[Install]
+WantedBy=multi-user.target

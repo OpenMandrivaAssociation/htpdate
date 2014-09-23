@@ -1,15 +1,14 @@
 Summary:	HTTP based time synchronization tool
 Name:		htpdate
-Version:	1.0.7
+Version:	1.1.0
 Release:	1
 License:	GPL
 Group:		System/Servers
-URL:		http://www.vervest.org/fiki/bin/view/HTP/DownloadC
-Source0:	http://www.vervest.org/htp/archive/c/%{name}-%{version}.tar.bz2
-Source1:	htpdate.init
+URL:		http://www.clevervest.com/htp/
+Source0:	http://www.clevervest.com/htp/archive/c/%{name}-%{version}.tar.xz
+Source1:	htpdate.service
 Source2:	htpdate.sysconfig
-Requires(post): rpm-helper
-Requires(preun): rpm-helper
+Source3:	%{name}.tmpfiles
 
 %description
 The HTTP Time Protocol (HTP) is used to synchronize a computer's time
@@ -28,38 +27,48 @@ proxy servers.
 
 %setup -q -n %{name}-%{version}
 
-gunzip htpdate.8*
-
-cp %{SOURCE1} htpdate.init
-cp %{SOURCE2} htpdate.sysconfig
+cp %{SOURCE1} %{name}.service
+cp %{SOURCE2} %{name}.sysconfig
 
 %build
 
 %make CFLAGS="%{optflags}"
 
 %install
+
 # don't fiddle with the initscript!
 export DONT_GPRINTIFY=1
 
 install -d %{buildroot}%{_sbindir}
 install -d %{buildroot}%{_mandir}
-install -d %{buildroot}%{_initrddir}
+install -d %{buildroot}%{_unitdir}
 install -d %{buildroot}%{_sysconfdir}/sysconfig
 
-install -m0755 htpdate %{buildroot}%{_sbindir}/htpdate
-install -m0644 htpdate.8 %{buildroot}%{_mandir}/htpdate.8
-install -m0755 htpdate.init %{buildroot}%{_initrddir}/htpdate
-install -m0644 htpdate.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/htpdate
+install -m0755 %{name} %{buildroot}%{_sbindir}/%{name}
+install -m0644 %{name}.8 %{buildroot}%{_mandir}/%{name}.8
+install -m0644 %{name}.service %{buildroot}%{_unitdir}/%{name}.service
+install -m0644 %{name}.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/%{name}
+sed "s:sysconfig:%{_sysconfdir}/sysconfig:" -i %{buildroot}%{_unitdir}/%{name}.service
+install -D -m 644 %{SOURCE3} %{buildroot}%{_prefix}/lib/tmpfiles.d/htpdate.conf
 
 %post
-%_post_service htpdate
+%tmpfiles_create htpdate
+%systemd_post %{name}.service
 
 %preun
-%_preun_service htpdate
+%systemd_preun %{name}.service
+
+%postun
+%systemd_postun_with_restart %{name}.service
+
+%clean
 
 %files
 %doc README Changelog
-%attr(0755,root,root) %{_initrddir}/htpdate
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/htpdate
-%attr(0755,root,root) %{_sbindir}/htpdate
-%attr(0644,root,root) %{_mandir}/htpdate.8*
+%attr(0644,root,root) %{_unitdir}/%{name}.service
+%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
+%attr(0755,root,root) %{_sbindir}/%{name}
+%attr(0644,root,root) %{_mandir}/%{name}.8*
+%{_prefix}/lib/tmpfiles.d/*.conf
+
+
