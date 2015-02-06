@@ -1,7 +1,7 @@
 Summary:	HTTP based time synchronization tool
 Name:		htpdate
 Version:	1.1.0
-Release:	1
+Release:	2
 License:	GPL
 Group:		System/Servers
 URL:		http://www.clevervest.com/htp/
