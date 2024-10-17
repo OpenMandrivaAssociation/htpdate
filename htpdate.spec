@@ -4,7 +4,7 @@ Version:	1.1.0
 Release:	2
 License:	GPL
 Group:		System/Servers
-URL:		http://www.clevervest.com/htp/
+URL:		https://www.clevervest.com/htp/
 Source0:	http://www.clevervest.com/htp/archive/c/%{name}-%{version}.tar.xz
 Source1:	htpdate.service
 Source2:	htpdate.sysconfig
