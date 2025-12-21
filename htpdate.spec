@@ -10,6 +10,7 @@ Source1:	htpdate.service
 Source2:	htpdate.sysconfig
 Source3:	%{name}.tmpfiles
 
+BuildRequires:	make
 %description
 The HTTP Time Protocol (HTP) is used to synchronize a computer's time
 with web servers as reference time source. Htpdate will synchronize your
